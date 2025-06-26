@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { useEffect } from "react";
 
 
-const Screen2 = ({route, navigation}) => {
+const Chat = ({route, navigation}) => {
 
   const {name} = route.params
 
@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor:'yellow'
   }
 })
-export default Screen2
+export default Chat
