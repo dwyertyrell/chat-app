@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, TextInput, View } from "react-native";
 import {useState} from 'react'
 
 const Start = ({navigation}) => {
@@ -13,10 +13,12 @@ const Start = ({navigation}) => {
       onChangeText={setName}
       ></TextInput>
       <Text style={styles.text}> name: {name}</Text>
-      <Button 
+      <TouchableOpacity 
+      style={styles.button}
       onPress={() => navigation.navigate('Chat', {name: name})} 
-      title='go to Chat-screen'
-      ></Button>
+      >
+        <Text>go to Chat-screen</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -35,7 +37,15 @@ const styles = StyleSheet.create({
     padding: 15,
     margin: 10,
     width: '88%'
+  },
+  button: {
+    borderWidth: 1,
+    opacity: .5,
+    borderRadius: 30,
+    backgroundColor: 'teal',
+    padding: 10
   }
+
 
 })
 
