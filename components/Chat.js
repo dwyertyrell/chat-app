@@ -8,10 +8,10 @@ const Chat = ({route, navigation}) => {
   const {name} = route.params
 
   const onSend = (newMessages) => {
-    setMessages((previousMessage)=> {
-      GiftedChat.append(previousMessage, newMessages)
-    })
-  }
+  setMessages((previousMessage) => {
+    return GiftedChat.append(previousMessage, newMessages)
+  })
+}
 
   useEffect(()=>{
 
@@ -41,17 +41,13 @@ const Chat = ({route, navigation}) => {
 
   }, [])
 
-  const renderBubble = () => {
+  const renderBubble = (props) => {
     return (
       <Bubble 
         {...props} //this function is inheriting the props.
         wrapperStyle ={ {
-          right: {
-            backgroundColor: '#000'
-          },
-          left: {
-            backgroundColor: '#FFF'
-          }
+          right: {backgroundColor: '#000'},
+          left: {backgroundColor: '#FFF'}
         }}
       />
     )
