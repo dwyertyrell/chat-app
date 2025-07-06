@@ -3,19 +3,31 @@ import {useState} from 'react'
 
 const Start = ({navigation}) => {
   const [name, setName] = useState('');
-  
+  const onPress = () => {
+     navigation.navigate('Chat', {name: name})
+  }
   return (
     <View style={styles.container}>
+
       <TextInput
       style={styles.textInput}
       placeholder="type name here"
       value={name}
       onChangeText={setName}
       ></TextInput>
-      <Text style={styles.text}> name: {name}</Text>
+
+      <Text 
+      style={styles.text}> 
+        name: {name}
+      </Text>
+
       <TouchableOpacity 
+      accessibilty= {true}
+      accessibilityLabel="more options"
+      accessibilityHint= "Let's you choose to send an image or geolocation."
       style={styles.button}
-      onPress={() => navigation.navigate('Chat', {name: name})} 
+      accessibilityRole= "button"
+      onPress={onPress} 
       >
         <Text>go to Chat-screen</Text>
       </TouchableOpacity>
