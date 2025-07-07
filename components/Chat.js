@@ -55,15 +55,6 @@ const Chat = ({route, navigation}) => {
 
   return (
    <View style= {styles.container}>
-    {/* <GiftedChat
-      messages={messages}
-      onSend={onSend}
-      user={{
-        _id: 1
-      }}
-    /> 
-    
-    { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }   */}
 
    { Platform.OS === 'ios' ? (
 
@@ -79,7 +70,6 @@ const Chat = ({route, navigation}) => {
     </KeyboardAvoidingView> 
     )
     : (
-    // <KeyboardAvoidingView behavior="height"> 
       <GiftedChat
       messages={messages}
       renderBubble={renderBubble}
@@ -88,7 +78,6 @@ const Chat = ({route, navigation}) => {
         _id: 1
       }}
       />
-    // </KeyboardAvoidingView>
    )}  
 
    </View>  
@@ -98,8 +87,6 @@ const Chat = ({route, navigation}) => {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    
-    // backgroundColor:'teal'
   }
 })
 export default Chat
