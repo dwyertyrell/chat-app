@@ -99,7 +99,7 @@ export default function App() {
         <Stack.Screen
           name='Start'
         >
-          {props => <Start {...props} /*auth={auth} *//>}
+          {props => <Start {...props} auth={auth} />}
         </Stack.Screen>
         <Stack.Screen
           name='Chat'
