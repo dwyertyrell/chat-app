@@ -1,10 +1,24 @@
-import { TouchableOpacity, StyleSheet, Text, TextInput, View } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, TextInput, View, Alert } from "react-native";
 import {useState} from 'react'
+import { signInAnonymously } from "firebase/auth";
 
-const Start = ({navigation}) => {
+
+const Start = ({navigation /*, auth*/}) => {
   const [name, setName] = useState('');
-  const onPress = () => {
-     navigation.navigate('Chat', {name: name})
+
+  // const onPress = () => {
+  //    navigation.navigate('Chat', {name: name})
+  // }
+
+ const signInUser = () => {
+    signInAnonymously(auth)
+      .then(result => {
+        navigation.navigate("Chat", {userID: result.user.uid /*, name: name */ });
+        Alert.alert("Signed in Successfully!");
+      })
+      .catch((error) => {
+        Alert.alert("Unable to sign in, try later again.");
+      })
   }
   return (
     <View style={styles.container}>
@@ -27,7 +41,7 @@ const Start = ({navigation}) => {
       accessibilityHint= "Let's you choose to send an image or geolocation."
       style={styles.button}
       accessibilityRole= "button"
-      onPress={onPress} 
+      onPress={signInUser} 
       >
         <Text>go to Chat-screen</Text>
       </TouchableOpacity>

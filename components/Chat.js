@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, Platform, KeyboardAvoidingView } from "react-native";
 import { useEffect, useState } from "react";
 import { GiftedChat, Bubble } from "react-native-gifted-chat";
+import { collection, getDocs, addDoc, onSnapshot, query, where } from "firebase/firestore";
 
 
-const Chat = ({route, navigation}) => {
+const Chat = ({route, navigation, db}) => {
   const [messages, setMessages] = useState([]);
-  const {name} = route.params
+  const {name, userID} = route.params
 
   const onSend = (newMessages) => {
   setMessages((previousMessage) => {
@@ -20,25 +21,37 @@ const Chat = ({route, navigation}) => {
   
   useEffect(() => {
 
-    setMessages([
-      {
-        _id: 1,
-        text: 'hello developer',
-        createdAt: new Date,
-        user: {
-          _id: 2,
-          name: 'tyrell dwyer',
-          avatar: 'https://placeholder.com'
-        },
-      },
-      {
-        _id: 2,
-        text: 'this is a system message',
-        createdAt: new Date(),
-        system: true
-      }
-    ])
+ const q = query(collection(db, "shoppinglists"), where("uid", "==", userID));
+    const unsubMessages = onSnapshot(q, (documentsSnapshot) => {
+      let newMessages = [];
+      documentsSnapshot.forEach(doc => {
+        newMessages.push({ id: doc.id, ...doc.data() })
+      });
+      setMessages(newMessages);
+    });
+  
+    // setMessages([
+    //   {
+    //     _id: 1,
+    //     text: 'hello developer',
+    //     createdAt: new Date,
+    //     user: {
+    //       _id: 2,
+    //       name: 'tyrell dwyer',
+    //       avatar: 'https://placeholder.com'
+    //     },
+    //   },
+    //   {
+    //     _id: 2,
+    //     text: 'this is a system message',
+    //     createdAt: new Date(),
+    //     system: true
+    //   }
+    // ])
 
+     return () => {
+      if (unsubMessages) unsubMessages();
+    }
   }, [])
 
   const renderBubble = (props) => {
@@ -79,7 +92,7 @@ const Chat = ({route, navigation}) => {
       }}
       />
    )}  
-
+   
    </View>  
   )
 };
