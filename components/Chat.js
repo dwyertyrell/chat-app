@@ -21,7 +21,7 @@ const Chat = ({route, navigation, db}) => {
   
   useEffect(() => {
 
- const q = query(collection(db, "shoppinglists"), where("uid", "==", userID));
+ const q = query(collection(db, "messages"), where("uid", "==", userID));
     const unsubMessages = onSnapshot(q, (documentsSnapshot) => {
       let newMessages = [];
       documentsSnapshot.forEach(doc => {
