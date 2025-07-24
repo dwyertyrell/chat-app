@@ -87,9 +87,9 @@ export default function App() {
   const db = getFirestore(app);
 
   // Initialize Firebase Auth with React Native persistence!
-  // const auth = initializeAuth(app, {
-  //   persistence: getReactNativePersistence(ReactNativeAsyncStorage)
-  // });
+  const auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+  });
 
   return (
     <NavigationContainer >
