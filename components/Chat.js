@@ -54,33 +54,29 @@ const Chat = ({route, navigation}) => {
   }
 
   return (
-   <View style= {styles.container}>
-
-   { Platform.OS === 'ios' ? (
-
-    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-50}>
-      <GiftedChat
-      messages={messages}
-      renderBubble={renderBubble}
-      onSend={onSend}
-      user={{
-        _id: 1
-      }}
-      />
-    </KeyboardAvoidingView> 
-    )
-    : (
-      <GiftedChat
-      messages={messages}
-      renderBubble={renderBubble}
-      onSend={onSend}
-      user={{
-        _id: 1
-      }}
-      />
-   )}  
-
-   </View>  
+   <View style={styles.container}>
+     {Platform.OS === 'ios' ? (
+      //  <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-50}>
+         <GiftedChat
+           messages={messages}
+           renderBubble={renderBubble}
+           onSend={onSend}
+           user={{
+             _id: 1
+           }}
+         />
+      //  </KeyboardAvoidingView>
+     ) : (
+       <GiftedChat
+         messages={messages}
+         renderBubble={renderBubble}
+         onSend={onSend}
+         user={{
+           _id: 1
+         }}
+       />
+     )}
+   </View>
   )
 };
 
