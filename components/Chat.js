@@ -71,7 +71,7 @@ const Chat = ({route, navigation, db}) => {
 
    { Platform.OS === 'ios' ? (
 
-    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-50}>
+    // <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={-50}>
       <GiftedChat
       messages={messages}
       renderBubble={renderBubble}
@@ -80,7 +80,7 @@ const Chat = ({route, navigation, db}) => {
         _id: 1
       }}
       />
-    </KeyboardAvoidingView> 
+    // </KeyboardAvoidingView> 
     )
     : (
       <GiftedChat
