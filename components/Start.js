@@ -7,10 +7,6 @@ import { auth } from "../firebase";
 const Start = ({ navigation }) => {
   const [name, setName] = useState('');
 
-  // const onPress = () => {
-  //    navigation.navigate('Chat', {name: name})
-  // }
-
   const signInUser = () => {
 
     signInAnonymously(auth)
