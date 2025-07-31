@@ -15,10 +15,10 @@ const firebaseConfig = {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
+  // Initialize Firebase Auth
   const auth = getAuth(app);
+  
   // Initialize Cloud Firestore and get a reference to the service
   const db = getFirestore(app);
-
-  // Initialize Firebase Auth with React Native persistence!
 
   export {db, auth};
