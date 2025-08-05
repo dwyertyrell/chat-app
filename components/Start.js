@@ -4,7 +4,7 @@ import { signInAnonymously } from "firebase/auth";
 import { auth } from "../firebase";
 
 
-const Start = ({ navigation, connectionStatus }) => {
+const Start = ({ navigation, isConnected }) => {
   const [name, setName] = useState('');
 
   const signInUser = () => {
@@ -34,11 +34,11 @@ const Start = ({ navigation, connectionStatus }) => {
         accessibilty={true}
         accessibilityLabel="more options"
         accessibilityHint="Let's you choose to send an image or geolocation."
-        style={styles.button}
+        style={ isConnected ? styles.button :styles.buttonOffline }
         accessibilityRole="button"
-        onPress={connectionStatus.isConnected ? signInUser : null} //disable navigation to Chat screen, while offline  
+        onPress={isConnected ? signInUser : null} //disable navigation to Chat screen, while offline  
       >
-        <Text>go to Chat-screen</Text>
+       { isConnected ? <Text>go to Chat-screen</Text> : <Text>click here when online</Text> }
       </TouchableOpacity>
     </View>
   )
@@ -65,7 +65,15 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: 'teal',
     padding: 10
+  },
+   buttonOffline: {
+    borderWidth: 1,
+    opacity: .5,
+    borderRadius: 30,
+    backgroundColor: 'red',
+    padding: 10
   }
+
 
 
 });
