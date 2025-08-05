@@ -31,7 +31,9 @@ disableNetwork(db); //otherwise, firestore will still attempt to fetch database 
         <Stack.Screen
           name='Start'
         >
-          {props => <Start {...props} />}
+          {props => <Start {...props} 
+          connectionStatus={connectionStatus.isConnected}
+          />}
         </Stack.Screen>
         <Stack.Screen
           name='Chat'
