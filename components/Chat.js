@@ -4,7 +4,7 @@ import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat"
 import { collection, getDocs, addDoc, onSnapshot, query, where, orderBy } from "firebase/firestore"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const Chat = ({route, navigation, db, isConnected}) => {
+const Chat = ({route, navigation, db, connectionStatus}) => {
   const [messages, setMessages] = useState([])
   const {name, userID} = route.params
 
@@ -21,7 +21,7 @@ const Chat = ({route, navigation, db, isConnected}) => {
 
   useEffect(() => {
 
-  if(isConnected === true) { //limits unsubMessages` to this if() block
+  if(connectionStatus === true) { //limits unsubMessages` to this if() block
      if (unsubMessages) unsubMessages();
       unsubMessages = null;
     const q = query(collection(db, "messages"), orderBy('createdAt', 'desc') /*where("uid", "==", userID)*/)
@@ -41,7 +41,7 @@ const Chat = ({route, navigation, db, isConnected}) => {
           if (unsubMessages) unsubMessages()
         }
       }else loadCachedMessages()
-  }, [isConnected])
+  }, [connectionStatus])
 
   const loadCachedMessages = async () => {
     const cachedMessages = await AsyncStorage.getItem('messages') || []
@@ -69,7 +69,7 @@ const Chat = ({route, navigation, db, isConnected}) => {
   }
 
   const renderOnSend = (props) => {
-    if(isConnected === false) {
+    if(connectionStatus === false) {
       return null //don't render the inputToolBar of the <GiftedChat/>
     }else return <InputToolbar {...props}/> //render InputToolBar as usual
   }
