@@ -2,12 +2,35 @@ import { TouchableOpacity, StyleSheet, Text, View, Alert } from "react-native"
 import {useActionSheet} from '@expo/react-native-action-sheet'
 import * as Location from 'expo-location'
 import * as ImagePicker from 'expo-image-picker'
+import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
 
 
 
-const CustomActions = ({wrapperStyle, iconTextStyle, onSend}) => {
+const CustomActions = ({wrapperStyle, iconTextStyle, onSend, storage, userID}) => {
  
   const actionSheet = useActionSheet()
+
+  const generateReference = (uri) => {
+    const timeStamp=(new Date()).getTime()
+    const imageName = uri.split('/')[uri.split('/').length -1]
+
+    return `${userID}-${timeStamp}-${imageName}`
+  }
+  const uploadAndSendImage = async(imageURI) => {
+    const uniqueRefString = generateReference(imageURI)
+    const newUploadRef = ref(storage, newReferenceString) 
+    const response = await fetch(imageURI)
+    const blob = await response.blob()
+    uploadBytes(newUploadRef, blob).then(async (snapshot) => {
+          console.log('file has been uploaded successfully')
+          const imageURL = await getDownloadURL(snapshot.ref)
+          onSend([{
+            _id: Math.random().toString(36).substring(7),
+            createdAt: new Date(),
+            text: '',
+            image:imageURL}]) //now when image is picked from library, not only it will be uploaded to cloud storage, but will also be sent as a message on chat screen
+        })
+  }
 
   const onActionPress = () => {
     const options = ['choose from library', 'take picture', 'send location', 'cancel']
@@ -60,17 +83,13 @@ const CustomActions = ({wrapperStyle, iconTextStyle, onSend}) => {
       const result = await ImagePicker.launchCameraAsync()
 
       if(!result.canceled) {
-        onSend([{
-          _id: Math.random().toString(36).substring(7),
-          createdAt: new Date(),
-          text: '',
-          image: result.assets[0].uri
-        }])
+        uploadAndSendImage(result.assets[0].uri)
       }
     } else {
       Alert.alert('camera\s permissions haven\'t been granted')
     }
   }
+
 
   const pickImage = async() => {
     let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -79,12 +98,7 @@ const CustomActions = ({wrapperStyle, iconTextStyle, onSend}) => {
       const result = await ImagePicker.launchImageLibraryAsync()
       
       if(!result.canceled){
-        onSend([{
-          _id: Math.random().toString(36).substring(7),
-          createdAt: new Date(),
-          text: '',
-          image: result.assets[0].uri
-        }])
+       uploadAndSendImage(result.assets[0].uri)
       }
     }else {
       Alert.alert('permissions to access Phone library has been denied')
