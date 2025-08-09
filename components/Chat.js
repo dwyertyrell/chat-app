@@ -1,15 +1,33 @@
 import { StyleSheet, Text, View, Platform, KeyboardAvoidingView } from "react-native"
 import { useEffect, useState } from "react"
 import { GiftedChat, Bubble, InputToolbar } from "react-native-gifted-chat"
-import { collection, getDocs, addDoc, onSnapshot, query, where, orderBy } from "firebase/firestore"
+import { collection, addDoc, onSnapshot, query, orderBy } from "firebase/firestore"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import CustomActions from './CustomActions'
+import MapView from "react-native-maps"
 
 const Chat = ({route, navigation, db, connectionStatus}) => {
   const [messages, setMessages] = useState([])
   const {name, userID} = route.params
 
   const onSend = (newMessages) => {
+    const message = {
+      ...newMessages[0],
+        _id: Math.random().toString(36).substring(7),
+        createdAt: new Date(),
+        user: {
+          _id: userID,
+          name: name
+        }
+    }
+    setMessages(message)
   addDoc(collection(db, 'messages'), newMessages[0]) //saves the passed message to the function in the database.
+  .then(() => {
+    console.log('message saved successfully')
+  })
+  .catch((err) => {
+    console.error('Error while saving message', err)
+  })
 }
 
   useEffect(()=>{
@@ -55,7 +73,7 @@ const Chat = ({route, navigation, db, connectionStatus}) => {
       console.log(error.message)
     }
   }
-
+/* passing these render functions into <GiftedChat/> to customize its rendering */
   const renderBubble = (props) => {
     return (
       <Bubble 
@@ -74,6 +92,29 @@ const Chat = ({route, navigation, db, connectionStatus}) => {
     }else return <InputToolbar {...props}/> //render InputToolBar as usual
   }
 
+  const renderCustomActions = (props) => {
+    return <CustomActions onSend = {onSend} {...props}/>
+  }
+
+  const renderCustomView = (props) => {
+    const {currentMessage} = props
+
+    if(currentMessage.location) {
+      return (
+        <MapView
+          style={{width: 150, height:100, borderRadius: 13, margin:13}}
+          region={{
+              latitude: currentMessage.location.latitude,
+              longitude: currentMessage.location.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+          }}/> 
+      )
+    }
+    return null
+
+  }
+
   return (
    <View style= {styles.container}>
      <KeyboardAvoidingView 
@@ -85,6 +126,8 @@ const Chat = ({route, navigation, db, connectionStatus}) => {
       messages={messages}
       renderBubble={renderBubble}
       renderOnSend={renderOnSend}
+      renderActions ={renderCustomActions}
+      renderCustomView={renderCustomView}
       onSend={onSend}
       user={{
         _id: userID,
