@@ -1,6 +1,7 @@
 # Chat App
 
 A cross-platform mobile chat application built with **React Native** and **Expo**. Using **Google Firestore Database** and **Firebase Cloud Storage** as a backend (BaaS) for authentication, database and cloud storage. This app enables users to communicate, share images, and send their location in real-time, optimized for both Android and iOS devices.
+This project was developed as part of CareerFoundry’s Achievement 5 Project and shows key skills in JavaScript mobile application development, real-time data management, device integration, and accessibility.
 
 ---
 
