@@ -5,6 +5,7 @@ import { collection, addDoc, onSnapshot, query, orderBy } from "firebase/firesto
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import CustomActions from './CustomActions'
 import MapView from "react-native-maps"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 const Chat = ({route, navigation, db, storage, connectionStatus}) => {
   const [messages, setMessages] = useState([])
@@ -121,25 +122,48 @@ const Chat = ({route, navigation, db, storage, connectionStatus}) => {
 
   return (
    <View style= {styles.container}>
-     <KeyboardAvoidingView 
-       style={styles.container}
-       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-       keyboardVerticalOffset={Platform.OS === 'ios' ? 30 : 0}
-     >
+     <SafeAreaView style={styles.container}> 
+
+      {Platform.OS === 'ios' ? (
+           // GiftedChat on IOS works better wihtout a keyboard avoiding wrapper
+      <View style={styles.container}>
         <GiftedChat
-      messages={messages}
-      renderBubble={renderBubble}
-      renderOnSend={renderOnSend}
-      renderActions ={renderCustomActions}
-      renderCustomView={renderCustomView}
-      onSend={onSend}
-      user={{
-        _id: userID,
-        name: name
-      }}
-      />
-    </KeyboardAvoidingView> 
-   
+          messages={messages}
+          renderBubble={renderBubble}
+          renderOnSend={renderOnSend}
+          renderActions ={renderCustomActions}
+          renderCustomView={renderCustomView}
+          onSend={onSend}
+          user={{
+            _id: userID,
+            name: name
+          }}
+          minInputToolbarHeight={44}
+          bottomOffset={0}
+        />
+      </View>
+
+         ) : (
+        <KeyboardAvoidingView 
+        style={styles.container}
+        behavior="padding"
+        enabled={Platform.OS === 'ios'}
+        >
+          <GiftedChat
+          messages={messages}
+          renderBubble={renderBubble}
+          renderOnSend={renderOnSend}
+          renderActions ={renderCustomActions}
+          renderCustomView={renderCustomView}
+          onSend={onSend}
+          user={{
+            _id: userID,
+            name: name
+          }}
+          />
+      </KeyboardAvoidingView>
+      )}
+    </SafeAreaView>   
    </View>  
   )
 }
