@@ -18,7 +18,7 @@ const CustomActions = ({wrapperStyle, iconTextStyle, onSend, storage, userID}) =
   }
   const uploadAndSendImage = async(imageURI) => {
     const uniqueRefString = generateReference(imageURI)
-    const newUploadRef = ref(storage, newReferenceString) 
+    const newUploadRef = ref(storage, uniqueRefString) 
     const response = await fetch(imageURI)
     const blob = await response.blob()
     uploadBytes(newUploadRef, blob).then(async (snapshot) => {
