@@ -183,19 +183,20 @@ Follow these steps to set up and run the project in your local development envir
 ### Chat Room Screen between user 1 and user 2
 *Show the main chat interface, with messages being sent and received, and the input field.*
 
+Click on both screenshots to open their live demo
+
 **user 1- John on IOS:** 
 
-On the IOS device, recording show a full conversation user 1, Jhon, is having with Tyrell. 
+On the IOS device, recording show the full conversation user 1 (Jhon) is having with user 2 (Tyrell). 
 User 1 is: Taking a picture and sending it; sharing its location to another user; and recieving location from other user. It also shows user 1 recieving picture and location from within the chat. 
 
-<video src="assets\iPhone-user.MP4" controls width="200"></video>
+[![iPhone user demo screenshot](assets\iPhone-user-screenshot.png)](assets\iPhone-user.MP4)
 
 **user 2- Tyrell on Android:**
 
 On the Android device, recording showing the same exact conversation john is having, but from the user perspective of Tyrell, user 2. 
 
-<video src="assets\android-user.mp4" controls width="200"></video>
-
+[![Android user demo screenshot](assets\andoid-user-screenshot.png)](assets\android-user.mp4)
 ---
 
 ## Architecture & Key Technologies
