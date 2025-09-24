@@ -190,13 +190,13 @@ Click on both screenshots to open their live demo
 On the IOS device, recording show the full conversation user 1 (Jhon) is having with user 2 (Tyrell). 
 User 1 is: Taking a picture and sending it; sharing its location to another user; and recieving location from other user. It also shows user 1 recieving picture and location from within the chat. 
 
-![iPhone user demo screenshot](assets\iPhone-user-screenshot.png)
+![iPhone user demo screenshot](assets/iPhone-user-screenshot.png)
 
 **user 2- Tyrell on Android:**
 
 On the Android device, recording showing the same exact conversation john is having, but from the user perspective of Tyrell, user 2. 
 
-![Android user demo screenshot](assets\andoid-user-screenshot.png)
+![Android user demo screenshot](assets/andoid-user-screenshot.png)
 
 ---
 
