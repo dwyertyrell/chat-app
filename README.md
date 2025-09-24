@@ -197,6 +197,7 @@ User 1 is: Taking a picture and sending it; sharing its location to another user
 On the Android device, recording showing the same exact conversation john is having, but from the user perspective of Tyrell, user 2. 
 
 [![Android user demo screenshot](assets\andoid-user-screenshot.png)](assets\android-user.mp4)
+
 ---
 
 ## Architecture & Key Technologies
